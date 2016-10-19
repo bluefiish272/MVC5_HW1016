@@ -352,6 +352,7 @@
     <Content Include="Views\Bank\Details.cshtml" />
     <Content Include="Views\Bank\Edit.cshtml" />
     <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Contact\IndexD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

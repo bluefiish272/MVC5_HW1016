@@ -58,9 +58,16 @@
             @Html.DisplayFor(model => model.客戶資料.客戶名稱)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.是否已刪除)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.是否已刪除)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("編輯", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("回上頁清單", "Index")
 </p>

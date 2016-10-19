@@ -115,7 +115,9 @@ namespace MVC5_HW1016.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            db.客戶銀行資訊.Remove(客戶銀行資訊);
+            //db.客戶銀行資訊.Remove(客戶銀行資訊);
+
+            客戶銀行資訊.是否已刪除 = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

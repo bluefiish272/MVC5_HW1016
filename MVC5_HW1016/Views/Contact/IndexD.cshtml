@@ -1,21 +1,16 @@
 ﻿@model IEnumerable<MVC5_HW1016.Models.客戶聯絡人>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexD";
 }
 
-<h2>客戶聯絡人管理</h2>
+<h2>IndexD</h2>
 
 <p>
-    @Html.ActionLink("新增聯絡人", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
-<input type="search" name="search" value="" />
-<input type="submit" value="搜尋" />
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.職稱)
         </th>
@@ -31,18 +26,17 @@
         <th>
             @Html.DisplayNameFor(model => model.電話)
         </th>
-        <td>
+        <th>
             @Html.DisplayNameFor(model => model.是否已刪除)
-        </td>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
+@foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.客戶資料.客戶名稱)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.職稱)
         </td>
@@ -62,9 +56,12 @@
             @Html.DisplayFor(modelItem => item.是否已刪除)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("詳細", "Details", new { id = item.Id }) |
-            @Html.ActionLink("刪除", "Delete", new { id = item.Id })
+            @Html.DisplayFor(modelItem => item.客戶資料.客戶名稱)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
