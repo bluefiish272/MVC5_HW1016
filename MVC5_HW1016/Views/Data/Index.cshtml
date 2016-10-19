@@ -7,8 +7,10 @@
 <h2>客戶資料管理</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增客戶資料", "Create")
 </p>
+<input type="search" name="search" value="" />
+<input type="submit" value="搜尋" />
 <table class="table">
     <tr>
         <th>
@@ -28,6 +30,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.是否已刪除)
         </th>
         <th></th>
     </tr>
@@ -51,6 +56,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.是否已刪除)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

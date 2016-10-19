@@ -15,8 +15,13 @@ namespace MVC5_HW1016.Controllers
         private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: Data
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            var data = db.客戶資料.Include(q => q.客戶名稱);
+            if (!string.IsNullOrEmpty(search))
+            {
+            }
+            data = data.OrderByDescending(a => a.客戶名稱);       
             return View(db.客戶資料.ToList());
         }
 
@@ -110,8 +115,9 @@ namespace MVC5_HW1016.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶資料 客戶資料 = db.客戶資料.Find(id);
-            db.客戶資料.Remove(客戶資料);
-            db.SaveChanges();
+            //db.客戶資料.Remove(客戶資料);
+            //db.SaveChanges();
+            客戶資料.是否已刪除 = true;
             return RedirectToAction("Index");
         }
 
