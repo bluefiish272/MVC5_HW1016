@@ -15,10 +15,20 @@ namespace MVC5_HW1016.Controllers
         private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: Contact
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+            if (!string.IsNullOrEmpty(search))
+            {
+                return View(db.客戶聯絡人.Where
+                    (c => c.姓名.Contains(search) || 
+                    c.手機.Contains(search) || 
+                    c.職稱.Contains(search) || 
+                    c.電話.Contains(search) ||
+                    c.Email.Contains(search))
+                    .OrderBy(a => a.Id));
+            }
+            return View(db.客戶聯絡人.OrderBy(a => a.Id).ThenBy(b =>b.客戶Id));
         }
 
         // GET: Contact/Details/5
@@ -50,6 +60,19 @@ namespace MVC5_HW1016.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
+            //if (客戶聯絡人.客戶Id == db.客戶聯絡人.Where(i => i.客戶Id > 0) && 客戶聯絡人.Email == db.客戶聯絡人.Where(i => i.Email == ))
+            //{
+            //    var errormessage = "同一客戶名稱下不得有相同的Email";
+            //    return RedirectToAction("Create", errormessage);
+            //}
+
+            var data = db.客戶聯絡人.Where(i => i.客戶Id == 客戶聯絡人.Id && i.Email == 客戶聯絡人.Email);
+            if (data != null)
+            {
+                var ViewBag = "同一客戶名稱下不得有相同的Email";
+                return RedirectToAction("Create", ViewBag);
+            }
+
             if (ModelState.IsValid)
             {
                 db.客戶聯絡人.Add(客戶聯絡人);
@@ -59,6 +82,7 @@ namespace MVC5_HW1016.Controllers
 
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
+
         }
 
         // GET: Contact/Edit/5

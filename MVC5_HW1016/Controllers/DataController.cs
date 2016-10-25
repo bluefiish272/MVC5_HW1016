@@ -17,13 +17,38 @@ namespace MVC5_HW1016.Controllers
         // GET: Data
         public ActionResult Index(string search)
         {
-            var data = db.客戶資料.Include(q => q.客戶名稱);
+            //var data = db.客戶資料;  // sql關聯需要包含鍵值欄位在關聯過去的table  a.id => b.custid 這樣才可以讓binclude a
+            //if (!string.IsNullOrEmpty(search))
+            //{
+            //    data.Where(p => p.客戶名稱.Contains(search));  //你有使用變數去接你改變後的值嗎?
+            //}
+            //data.OrderByDescending(p => p.Id).Take(20);
+            //return View(data);
+            //var data = db.客戶資料.OrderByDescending(p => p.Id).Take(20);
             if (!string.IsNullOrEmpty(search))
             {
+                return View(db.客戶資料.Where
+                    (p => p.客戶名稱.Contains(search) 
+                    || p.統一編號.Contains(search)
+                    || p.電話.Contains(search)
+                    || p.傳真.Contains(search)
+                    || p.地址.Contains(search)
+                    || p.Email.Contains(search))
+                    .OrderBy(p => p.Id));
             }
-            data = data.OrderByDescending(a => a.客戶名稱);       
-            return View(db.客戶資料.ToList());
+            return View(db.客戶資料.OrderBy(p => p.Id).Take(20));
+
         }
+
+        //public ActionResult Action(string search)
+        //{
+        //    //var data = db.客戶資料.OrderByDescending(p => p.Id).Take(20);
+        //    if (!string.IsNullOrEmpty(search))
+        //    {
+        //        return RedirectToAction("Index", db.客戶資料.Where(p => p.客戶名稱.Contains(search)).OrderByDescending(p => p.Id).Take(20));
+        //    }
+        //    return RedirectToAction("Index", db.客戶資料.OrderByDescending(p => p.Id).Take(20));
+        //}
 
         // GET: Data/Details/5
         public ActionResult Details(int? id)

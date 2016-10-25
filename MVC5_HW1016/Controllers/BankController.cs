@@ -15,10 +15,20 @@ namespace MVC5_HW1016.Controllers
         private 客戶資料Entities db = new 客戶資料Entities();
 
         // GET: Bank
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料);
-            return View(客戶銀行資訊.ToList());
+            if (!string.IsNullOrEmpty(search))
+            {
+                return View(db.客戶銀行資訊.Where
+                    (b => b.銀行名稱.Contains(search) 
+                    || b.銀行代碼.ToString().Contains(search)
+                    || b.帳戶名稱.Contains(search)
+                    || b.分行代碼.ToString().Contains(search)
+                    || b.帳戶號碼.Contains(search))
+                    .OrderBy(a => a.Id));
+            }
+            return View(db.客戶銀行資訊.OrderBy(a => a.Id));
         }
 
         // GET: Bank/Details/5
